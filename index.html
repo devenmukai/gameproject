@@ -11,9 +11,11 @@
       var w = window.innerWidth;
       var h = window.innerHeight;
       var player;
+      var badguy;
       function setup() {
         createCanvas(w,h);
         player = new player();
+        badguy = new badguy();
       }
       
       function draw() {
@@ -44,6 +46,16 @@
           if((keyIsDown(87)) && (this.y > 0)) {
                this.y = this.y - 10;
            }
+        }
+        function badguy() {
+          this.x = w/2;
+          this.y = h/2;
+          this.width = 50;
+          this.height = 50;
+          this.setup = function() {
+            fill(color('red'));
+            ellipse(this.x,this.y,this.width,this.height);
+          }
         }
         
       }
