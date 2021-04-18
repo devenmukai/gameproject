@@ -22,6 +22,7 @@
         clear();
         player.show();
         player.update();
+        badguy.show();
       }
       
       function player() {
@@ -52,7 +53,7 @@
           this.y = h/2;
           this.width = 50;
           this.height = 50;
-          this.setup = function() {
+          this.show = function() {
             fill(color('red'));
             ellipse(this.x,this.y,this.width,this.height);
           }
