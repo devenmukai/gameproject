@@ -12,10 +12,12 @@
       var h = window.innerHeight;
       var player;
       var badguy;
+      var goodpoint;
       function setup() {
         createCanvas(w,h);
         player = new player();
         badguy = new badguy();
+        goodpoint = new goodpoint();
       }
       
       function draw() {
@@ -23,6 +25,8 @@
         player.show();
         player.update();
         badguy.show();
+        goodpoint.show();
+        goodpoint.update();
       }
       
       function player() {
@@ -58,6 +62,24 @@
             fill(color('red'));
             ellipse(this.x,this.y,this.width,this.height);
           }
+        }
+      
+        function goodpoint() {
+          this.x = random(w-25,w*2/3)||random(0,w/3)
+          this.y = random(h-50,h*2/3)||random(0,w/3)
+          this.width = 50;
+          this.height = 50;
+          this.show = function() {
+            fill(color('yellow"));
+            ellipse(this.x,this.y,this.width,this.height);
+          this.update = function() {
+            }
+          
+          
+          
+          }
+        
+        
         }
         
       
