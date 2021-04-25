@@ -13,6 +13,7 @@
       var player;
       var badguy;
       var goodpoint;
+      var hit = false;
       function setup() {
         createCanvas(w,h);
         player = new player();
@@ -27,6 +28,15 @@
         badguy.show();
         goodpoint.show();
         goodpoint.update();
+        
+        hit = collideRectCircle(player.x,player.y,player.width,player.height,goodpoint.x,goodpoint.y,goodpoint.width);
+        if (hit === true) {
+          scorecount += 1
+          goodpoint.x = random(w-25,w*2/3)||random(0,w/3)
+          goodpoint.y = random(h-50,h*2/3)||random(0,w/3)
+        
+        
+        }
       }
       
       function player() {
@@ -84,5 +94,6 @@
         
       
     </script>
+    <h1 id="scorecount">Score:</h1>
   </body>
 </html>
