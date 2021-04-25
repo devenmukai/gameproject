@@ -48,16 +48,16 @@
           randx = random(1,2)
           randy = random(1,2)
           if(randx = 1) {
-            goodpoint.x = random(0,w/3)
+            goodpoint.x = random(30,w/3)
           }
           else {
-            goodpoint.x = random(w*2/3,h)
+            goodpoint.x = random(w*2/3,w-30)
           }
           if(randy = 1) {
-            goodpoint.y = random(0,w/3)
+            goodpoint.y = random(30,w/3)
           }
           else {
-            goodpoint.y = random(0,w*2/3)
+            goodpoint.y = random(h*2/3,h-30)
           }
           
         }
@@ -109,13 +109,13 @@
             this.x = random(0,w/3)
           }
           else {
-            this.x = random(w*2/3,h)
+            this.x = random(w*2/3,w-30)
           }
           if(randy = 1) {
-            this.y = random(0,w/3)
+            this.y = random(30,w/3)
           }
           else {
-            this.y = random(0,w*2/3)
+            this.y = random(h*2/3,h-30)
           }
           
          // this.x = random(0,w-100)
