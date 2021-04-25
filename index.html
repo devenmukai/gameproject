@@ -46,9 +46,11 @@
           pointcount += 1
           document.getElementById('scorecount').innerHTML = "Score:" + pointcount
           goodpoint.x = random(0,w-100)
-          goodpoint.y = random(0,h-100)
-        
-        
+          goodpoint.y = random(0,h-150)
+        }
+        if(((goodpoint.x > badguy.x - 200)&&(goodpoint.x < badguy.x + 200))||((goodpoint.y > badguy.y - 200)&&(goodpoint.y < badguy.y + 200))) {
+          goodpoint.x = random(0,w-100)
+          goodpoint.y = random(0,h-150)
         }
       }
       
@@ -89,7 +91,7 @@
       
         function goodpoint() {
           this.x = random(0,w-100)
-          this.y = random(0,h-100)
+          this.y = random(0,h-150)
           this.width = 50;
           this.height = 50;
           this.show = function() {
