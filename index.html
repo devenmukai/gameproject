@@ -45,13 +45,26 @@
         if (hit === true) {
           pointcount += 1
           document.getElementById('scorecount').innerHTML = "Score:" + pointcount
+          randx = random(1,2)
+          randy = random(1,2)
+          if(randx = 1) {
+            goodpoint.x = random(0,w/3)
+          }
+          else {
+            goodpoint.x = random(w*2/3,h)
+          }
+          if(randy = 1) {
+            goodpoint.y = random(0,w/3)
+          }
+          else {
+            goodpoint.y = random(0,w*2/3)
+          }
+          
+        }
+       /* if(((goodpoint.x > badguy.x - 200)&&(goodpoint.x < badguy.x + 200))||((goodpoint.y > badguy.y - 200)&&(goodpoint.y < badguy.y + 200))) {
           goodpoint.x = random(0,w-100)
           goodpoint.y = random(0,h-150)
-        }
-        if(((goodpoint.x > badguy.x - 200)&&(goodpoint.x < badguy.x + 200))||((goodpoint.y > badguy.y - 200)&&(goodpoint.y < badguy.y + 200))) {
-          goodpoint.x = random(0,w-100)
-          goodpoint.y = random(0,h-150)
-        }
+        }*/
       }
       
       function player() {
@@ -90,8 +103,23 @@
         }
       
         function goodpoint() {
-          this.x = random(0,w-100)
-          this.y = random(0,h-150)
+           randx = random(1,2)
+           randy = random(1,2)
+          if(randx = 1) {
+            this.x = random(0,w/3)
+          }
+          else {
+            this.x = random(w*2/3,h)
+          }
+          if(randy = 1) {
+            this.y = random(0,w/3)
+          }
+          else {
+            this.y = random(0,w*2/3)
+          }
+          
+         // this.x = random(0,w-100)
+         // this.y = random(0,h-150)
           this.width = 50;
           this.height = 50;
           this.show = function() {
