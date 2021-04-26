@@ -137,6 +137,8 @@
           
           function bullets() {
             this.x = w/2
+            var xmovement = random(-5,5)
+            var ymovement = random(-5,5)
             this.y = h/2
             this.width = 10
             this.height = 10
@@ -144,8 +146,8 @@
             if(millis() >= 1000)
                fill(color('black'));
               ellipse(this.x,this.y,this.width,this.height);
-              this.x += random(-5,5)
-              this.y += random(-5,5)
+              this.x += xmovement
+              this.y += ymovement
               timer = millis();
               
             }
