@@ -24,13 +24,16 @@
       var player;
       var badguy;
       var goodpoint;
+      var bullets;
       pointcount = 0;
+      timer = 0;
       var hit = false;
       function setup() {
         createCanvas(w,h);
         player = new player();
         badguy = new badguy();
         goodpoint = new goodpoint();
+        bullets = new bullets();
       }
       
       function draw() {
@@ -40,6 +43,8 @@
         badguy.show();
         goodpoint.show();
         goodpoint.update();
+        bullets.show();
+        bullets.update();
         
         hit = collideRectCircle(player.x,player.y,player.width,player.height,goodpoint.x,goodpoint.y,goodpoint.width);
         if (hit === true) {
@@ -128,9 +133,23 @@
           }
           this.update = function() {
             }
+          }
           
-          
-          
+          function bullets() {
+            this.x = w/2
+            this.y = h/2
+            this.width = 10
+            this.height = 10
+            this.show = function() {
+            if(millis() >= 1000)
+               fill(color('black'));
+              ellipse(this.x,this.y,this.width,this.height);
+              this.x += random(-5,5)
+              this.y += random(-5,5)
+              timer = millis();
+              
+            }
+            
           }
         
         
