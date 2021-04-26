@@ -144,13 +144,24 @@
             this.width = 10
             this.height = 10
             this.show = function() {
-            if(millis() >= 500) {
+           
               fill(color('black'));
               ellipse(this.x,this.y,this.width,this.height);
               this.x += xmovement
               this.y += ymovement
               timer = millis();
+            
             }
+            this.update = function() {
+              if(millis() >= 500) {
+                fill(color('black'));
+              ellipse(this.x,this.y,this.width,this.height);
+              this.x += xmovement
+              this.y += ymovement
+              timer = millis();
+            
+              
+              }
             }
             
           }
