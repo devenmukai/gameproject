@@ -142,9 +142,10 @@
             this.y = h/2
             this.width = 10
             this.height = 10
+            fill(color('black'));
             this.show = function() {
             if(millis() >= 500)
-               fill(color('black'));
+               
               ellipse(this.x,this.y,this.width,this.height);
               this.x += xmovement
               this.y += ymovement
