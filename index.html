@@ -74,6 +74,7 @@
       var hit = false;
       var wing;
       var flappybird;
+      var gamecoin;
       timer = 0;
       scorecount = 0;
       
@@ -92,6 +93,7 @@
         pipe2v = new pipe2v();
         goodpoint = new goodpoint();
         flappybird = loadImage("flappybird.png");
+        gamecoin = loadImage("gamecoin.png")
        
       }
 
@@ -111,6 +113,7 @@
            goodpoint.show();
            
            image(flappybird,player.x - 40,player.y - 30,80,60)
+           image(gamecoin,goodpoint.x,goodpoint.y,50,50)
 
       
         
