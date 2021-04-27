@@ -145,8 +145,12 @@
            gid('endscene').style.display = "block";
            gid('finalscore').innerHTML = "Final Score: " + scorecount;
            birdhit.play();
+         for (var i = 0; i < 1000; i++) {
+           if (player.y < h - 25) {
+            player.y += 10
+           }
            noLoop(); 
-         
+         }
        }
 
       
