@@ -73,6 +73,7 @@
       var goodpoint;
       var hit = false;
       var wing;
+      var flappybird;
       timer = 0;
       scorecount = 0;
       
@@ -90,6 +91,7 @@
         pipe2 = new pipe2();
         pipe2v = new pipe2v();
         goodpoint = new goodpoint();
+        flappybird = loadImage("flappybird.png");
        
       }
 
@@ -107,7 +109,7 @@
            pipe2v.thingy();*/
            goodpoint.show();
            
-
+           image(flappybird,player.x,player.y,50,50)
 
       
         
