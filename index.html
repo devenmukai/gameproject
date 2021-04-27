@@ -1,10 +1,10 @@
 <html>
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"></script>
-    <script defer src="https://unpkg.com/p5.collide2d"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+    <script src="https://unpkg.com/p5.collide2d"></script>
     <style>
       body {
+    
         width: 100%;
         height: 100%;
         margin: 0px;
@@ -12,164 +12,373 @@
         overflow: hidden;
         display: block;
       }
+       
       h1 {
-        background-color: lightblue;
+         position: absolute;
+         margin-left: 45vw;
+         font-size: 20px;
+       
       }
-    </style> 
+      #endscene {
+        height: 400px;
+        width: 400px;
+        position: absolute;
+        background-color:aqua;
+        left: 35vw;
+        display: none;
+        
+      }
+      #finalscore {
+        font-weight: bold;
+        font-size: 30px;
+
+      }
+      #scoreheading {
+        font-size: 30px;
+      }
+      #startwarning {
+        height: 400px;
+        width: 400px;
+        position: absolute;
+        background-color:aqua;
+        left: -150px;
+        
+        display: block;
+      }
+      #deathmessage {
+        font-weight: bold;
+        font-size: 30px;
+      }
+      #reloadmessage {
+        font-weight: bold;
+        font-size: 30px;
+      }
+      </style>
   </head>
   <body>
     <script>
+    
+      function gid(e) {
+    return document.getElementById(e);
+}  
       var w = window.innerWidth;
       var h = window.innerHeight;
+      //Declare the player
       var player;
-      var badguy;
+      var pipe1;
+      var pipe1v;
+      var pipe2;
+      var pipe2v;
       var goodpoint;
-      var bullets;
-      pointcount = 0;
-      timer = 0;
       var hit = false;
+      timer = 0;
+      scorecount = 0;
+      
+
       function setup() {
         createCanvas(w,h);
+        //Assign the player as an object
         player = new player();
-        badguy = new badguy();
+        pipe1 = new pipe1();
+        pipe1v = new pipe1v();
+        pipe2 = new pipe2();
+        pipe2v = new pipe2v();
         goodpoint = new goodpoint();
-        bullets = new bullets();
+       
       }
-      
+
       function draw() {
-        clear();
-        player.show();
-        player.update();
-        badguy.show();
-        goodpoint.show();
-        goodpoint.update();
-        bullets.show();
-        bullets.update();
+           clear();
+           player.show();
+          /* player.update();
+           pipe1.show();
+           pipe2.show();
+           pipe1.update();
+           pipe2.update();
+           pipe1v.show();
+           pipe1v.update();
+           pipe2v.show();
+           pipe2v.thingy();*/
+           goodpoint.show();
+           
+
+
+      
         
+      
+       
+    
+       /*
+       if (player.y < 25) {
+         player.y = 25
+       }*/
+   
+       hit1 = collideRectCircle(pipe1.x,pipe1.y,pipe1.width,pipe1.height,player.x,player.y,50);
+       hit2 = collideRectCircle(pipe2.x,pipe2.y,pipe2.width,pipe2.height,player.x,player.y,50);
+       hit3 = collideRectCircle(pipe1v.x,pipe1v.y,pipe1v.width,pipe1v.height,player.x,player.y,50);
+       hit4 = collideRectCircle(pipe2v.x,pipe2v.y,pipe2v.width,pipe2v.height,player.x,player.y,50);
+
+       hit5 = collideCircleCircle(player.x,player.y,50,goodpoint.x,goodpoint.y,50);
+
+       if (hit5 === true) {
+          scorecount += 1
+          goodpoint.x = random(100, w/2 - 100)
+          goodpoint.y = random(200, h - 150)
+          document.getElementById('scoreheading').innerHTML = "Score: " + scorecount
+       }
+
+       if ((hit1 === true)||(hit2 === true)||(hit3 === true)||(hit4 === true)||(player.x <= 25)||(player.x >= w-25)||(player.y >= h-25)||(player.y <= 25)){
+           noLoop();
+           gid('endscene').style.display = "block";
+           gid('finalscore').innerHTML = "Final Score: " + scorecount;
+           
+       }
+
+      
+     
+       
+           
+     
+       if (startwarning.style.display === 'none') {
+        if(keyIsDown(65)) {
+           player.x -= 10
+       }
+       if(keyIsDown(68)) {
+           player.x += 10
+       }
+      
+
+           player.update();
+           pipe1.show();
+           pipe2.show();
+           pipe1.update();
+           pipe2.update();
+           pipe1v.update();
+           pipe2v.thingy();
+           if(millis() >= w*0.8 + timer) {
+             pipe1v.x -= 10
+             pipe2v.x -= 10
+             pipe1v.show();
+             pipe2v.show();
+          // timer = millis()
+           }
+         
+
+      }
+     }
+      
+   
+     function keyPressed() {
+       if(startwarning.style.display === 'none') {
+         if (key === " ") {
+          player.jump();
+         }
+          
+          
+      }
+  }
+     
+    
+
+    
+    function thestartbutton() {
         
-        hit = collideRectCircle(player.x,player.y,player.width,player.height,goodpoint.x,goodpoint.y,goodpoint.width);
-        if (hit === true) {
-          pointcount += 1
-          document.getElementById('scorecount').innerHTML = "Score:" + pointcount
-          randx = random(1,3)
-          randy = random(1,3)
-          if(randx = 1) {
-            goodpoint.x = random(30,w/3)
-          }
-          else {
-            goodpoint.x = random(w*2/3,w-30)
-          }
-          if(randy = 1) {
-            goodpoint.y = random(30,w/3)
-          }
-          else {
-            goodpoint.y = random(h*2/3,h-30)
+           var startwarning = gid('startwarning');
+           gid('startwarning').style.display = "none";
+           for(var i = 0; i<2; i++) { 
+            timer = millis();
           }
           
-        }
-       /* if(((goodpoint.x > badguy.x - 200)&&(goodpoint.x < badguy.x + 200))||((goodpoint.y > badguy.y - 200)&&(goodpoint.y < badguy.y + 200))) {
-          goodpoint.x = random(0,w-100)
-          goodpoint.y = random(0,h-150)
-        }*/
-      }
-      
+    }
+
+
+      //Build player object
       function player() {
-        this.x = w/4
-        this.y = h/2
-        this.width = 50
-        this.height = 50
+        //Define position of player
+        this.x = w/4;
+        this.y = h/2;
+        //Gravitational force
+        this.gravity = 1.7;
+        //Oppositional force
+        this.lift = -35;
+        //Initial velocity
+        this.velocity = 0;
+        //Define what the player looks like
         this.show = function() {
           fill(color('red'));
-          rect(this.x,this.y,this.width,this.height);
+          ellipse(this.x,this.y,50,50);
+        }
+        //Update the object
+        this.update = function() {
+          //Add gravity to the velocity
+          this.velocity += this.gravity;
+          //Direction of pull
+          this.y += this.velocity;
+          //Resistance to velocity
+          //this.velocity += 0.9;
+          this.velocity *= 0.9;
+          //This stops the player from leaving the ground
+          if (this.y > h-25) {
+            this.y = h-25;
+            this.velocity = 0;
+          }
+         
+         
+        
+        }
+        //This makes the player jump
+         this.jump = function() {
+            this.velocity += this.lift;
+         }
+        
+        }
+    
+
+      function pipe1() {
+          this.x = w-50
+          this.y = 0
+          this.height = random(1,h - 300)
+          this.width = 50
+          this.show = function() {
+              
+              fill(color('green'));
+              rect(this.x,this.y,this.width,this.height);
+              this.x -= 10
+              
+          }
+          this.update = function() {
+            
+            if (this.x < 0) {
+              
+                this.height = random(1,h - 300)
+                this.x = w-50
+                this.y = 0
+                
+           }
+          }
+      }
+
+      function pipe1v() {
+          this.x = w-50
+          this.y = 0
+          this.height = random(1,h - 300)
+          this.width = 50
+          this.show = function() {
+            
+           // if(startwarning.style.display === 'none') {
+            //  timer = millis();
+         //  if(millis() >= 1250){
+            fill(color('green'));
+              rect(this.x,this.y,this.width,this.height);
+           //   this.x -= 10
+          //   timer = millis();
+          // }
+         // }
+          }
+          this.update = function() {
+            
+            if (this.x < 0) {
+                this.height = random(1,h - 300)
+                this.x = w-50
+                this.y = 0
+             
+           }
+          }
+      }
+     
+      
+      function pipe2v() {
+        this.x = w-50
+        this.y = pipe1v.height + 250
+        this.height = h-this.y
+        this.width = 50
+        this.show = function() {
+        //  if (startwarning.style.display === 'none') {
+         //   timer = millis();
+         // if(millis() >= 1250) {
+          fill(color('green'));
+            rect(this.x,this.y,this.width,this.height);
+            //this.x -= 10
+            
+          //}
+        //}
+        }
+        this.thingy = function() {
+           
+           if (this.x < 0) {
+               this.y = pipe1v.height + 250
+               this.height = h-this.y
+               this.x = w-50
+               
+              
+               
+          }
+        }
+
+      }
+
+      function pipe2() {
+        this.x = w-50
+        this.y = pipe1.height + 250
+        this.height = h-this.y
+        this.width = 50
+        this.show = function() {
+          
+            fill(color('green'));
+            rect(this.x,this.y,this.width,this.height);
+            this.x -= 10
+          
         }
         this.update = function() {
-          if((keyIsDown(65)) && (this.x > 0)) {
-               this.x = this.x - 10;
-           }
-          if((keyIsDown(68)) && (this.x < w - this.width)) {
-               this.x = this.x + 10;
-           }
-          if((keyIsDown(83)) && (this.y < h - 90)) {
-               this.y = this.y + 10;
-           }
-          if((keyIsDown(87)) && (this.y > 5)) {
-               this.y = this.y - 10;
-           }
+           
+           if (this.x < 0) {
+               this.y = pipe1.height + 250
+               this.height = h-this.y
+               this.x = w-50 
+          }
         }
+
       }
-        function badguy() {
-          this.x = w/2;
-          this.y = h/2;
-          this.width = 50;
-          this.height = 50;
-          life = 1;
-          this.show = function() {
-            fill(color('red'));
-            ellipse(this.x,this.y,this.width,this.height);
-          }
-        }
-      
-        function goodpoint() {
-           randx = random(1,3)
-           randy = random(1,3)
-          if(randx = 1) {
-            this.x = random(0,w/3)
-          }
-          else {
-            this.x = random(w*2/3,w-30)
-          }
-          if(randy = 1) {
-            this.y = random(30,w/3)
-          }
-          else {
-            this.y = random(h*2/3,h-30)
-          }
-          
-         // this.x = random(0,w-100)
-         // this.y = random(0,h-150)
-          this.width = 50;
-          this.height = 50;
+
+      function goodpoint() {
+          this.x = random(100, w/2 - 100)
+          this.y = random(200, h - 150)
+          this.height = 50
+          this.width = 50
           this.show = function() {
             fill(color('yellow'));
             ellipse(this.x,this.y,this.width,this.height);
           }
-          this.update = function() {
-            }
-          }
           
-          function bullets() {
-            this.x = w/2
-            var xmovement = random(-5,5)
-            var ymovement = random(-5,5)
-            this.y = h/2
-            this.width = 10
-            this.height = 10
-            this.show = function() {
-              
-              fill(color('black'));
-              ellipse(this.x,this.y,this.width,this.height);
-              
-            
-            }
-            this.update = function() {
-              if(millis() >= 500) {
-                
-              this.x += xmovement
-              this.y += ymovement
-              timer = millis();
-            
-              
-              }
-            }
-            
-          }
+
+
+      }
+
+
+     /* function restarting() {
+         player.x = w/4;
+         player.y = h/2;
+         timer = millis();
+         gid('endscene').style.display = "none";
+         gid('startwarning').style.display = "block";
+         pipe1.x = w-50
+         pipe2.x = w-50
+         pipe1v.x = 10 * w
+         pipe2v.x = 10 * w
+
+         
+
+
         
-        
-        
-        
+
+
+      }*/
       
-    </script>
-    <h1 id="scorecount">Score: 0</h1>
-    <h1 id="lifecount">Life: 1</h1>
+      
+      
+      </script>
+      <h1 id="scoreheading">Score: 0</h1>
+      <div id="endscene"><ul><li id="deathmessage">You Died!</li><li id="finalscore">Final Score</li><li id="reloadmessage">Reload the page to play again</li></ul></div>
+      <h1 id="startwarning"><ul><li>Dodge and avoid the green pipes</li><li>Collect the yellow coins to gain points</li><li>Hitting the top, bottom, left, or right of the screen kills you</li><li>Holding "A" will move you left</li><li>Holding "D" will move you right</li><li>Pressing Spacebar will move make you jump</li><li>Press the start button to start</li></ul><button onclick="thestartbutton()">Start</button></h1>
   </body>
 </html>
