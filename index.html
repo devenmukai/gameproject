@@ -81,6 +81,7 @@
       function preload() {
          soundFormats("mp3");
          wing = loadSound("wing.mp3")
+         birdhit = loadSound("hit.mp3")
       }
       
       function setup() {
@@ -143,7 +144,12 @@
            noLoop();
            gid('endscene').style.display = "block";
            gid('finalscore').innerHTML = "Final Score: " + scorecount;
-           
+           hit.play();
+         for (var i = 0; i < 10000; i++) {
+           if(player.y > w-25) {
+             player.y -= 10
+           }
+         }
        }
 
       
